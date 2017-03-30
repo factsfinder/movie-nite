@@ -14,7 +14,6 @@ var Nav  = React.createClass({
           <li><a href="#">About</a></li>
           <li><a href="#">Contact</a></li>
         </ul>
-        <Search />
       </div>
     );
   }
@@ -25,6 +24,7 @@ var Header = React.createClass({
     return (
       <div className="header">
         <Nav />
+        <Search />
       </div>
     );
   }
