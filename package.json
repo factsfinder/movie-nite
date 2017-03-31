@@ -35,8 +35,8 @@
   },
   "scripts": {
     "dev": "webpack-dev-server",
-    "start": "NODE_ENV=production node server.js",
-    "postinstall": "webpack -p"
+    "postinstall": "webpack --config ./webpack.config.js --progress --colors",
+    "start": "NODE_ENV=production node server.js"
   },
   "author": "Phanindra Veera",
   "license": "ISC"
