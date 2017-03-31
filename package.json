@@ -4,9 +4,12 @@
   "description": "Search your favorite Movies and TV Shows..!",
   "main": "index.js",
   "dependencies": {
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-react": "^6.23.0",
     "react": "^15.4.2",
-    "react-bootstrap": "^0.30.8",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "webpack": "^2.3.2"
   },
   "devDependencies": {
     "babel-core": "^6.24.0",
@@ -22,8 +25,10 @@
   },
   "scripts": {
     "build": "webpack",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "prod": "NODE_ENV=production node server.js",
+    "postinstall": "webpack -p"
   },
-  "author": "",
+  "author": "Phanindra Veera",
   "license": "ISC"
 }
