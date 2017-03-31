@@ -1,33 +1,11 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var Header = require('./header.js');
+var Popular = require('./popular.js');
+var TitleItem = require('./titleitem.js');
 var SearchIcon = require('../images/searchicon.png');
 var Fallback_Image = require('../images/fallback_movie_image.jpg');
-// Nav Component within Header Component
-var Nav  = React.createClass({
-  render(){
-    return (
-      <div className="nav">
-       <span className="logo"><a href=".">Movies Nite</a></span>
-        <ul className="nav-items">
-          <li><a href="#">Movies</a></li>
-          <li><a href="#">T.V Shows</a></li>
-          <li><a href="#">Popular</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </div>
-    );
-  }
-});
-var Header = React.createClass({
-  render(){
-    return (
-      <div className="header">
-        <Nav />
-      </div>
-    );
-  }
-});
+
 
 // Search Component after the Header Component
 var Search = React.createClass({
@@ -41,19 +19,6 @@ var Search = React.createClass({
   }
 });
 
-var TitleItem = React.createClass({
-  render(){
-    return (
-      <div className="item" key={this.props.id} style={{ backgroundImage: 'url(' + this.props.imgURL + ')'}}>
-        <div className="overlay">
-          <h2>{this.props.title}</h2>
-          <p>{this.props.overview}</p>
-          <p>{this.props.score}</p>
-        </div>
-      </div>
-    );
-  }
-});
 
 
 var App  = React.createClass({
@@ -68,6 +33,8 @@ var App  = React.createClass({
       total_results: '',
       curr_page: '',
       curr_page_results: '',
+      showSearchResults: false,
+      showPopular: true
     }
   },
 
@@ -104,8 +71,6 @@ var App  = React.createClass({
           curr_page: responseJson.page,
           curr_page_results: responseJson.results.length,
         });
-        console.log(this.state.apiResObj);
-        console.log(this.state.moviesdata);
         })
       .catch((err)=>{
         console.error(err);
@@ -122,14 +87,21 @@ var App  = React.createClass({
   //the query is used to create the api url and this url is set as state's url property
     _handleSubmit(e){
       if(e.key === 'Enter' && this.state.query != ''){
-        var reqURL = "https://api.themoviedb.org/3/search/movie?api_key=372f0200f82160d08d565e5a32b002cf&query=" + this.state.query;
+        var reqURL = "https://api.themoviedb.org/3/search/movie?api_key=372f0200f82160d08d565e5a32b002cf&query=" + this.state.query +"&paage=1";
         this.setState({
-          url: reqURL
+          url: reqURL,
+          showSearchResults: true,
+          showPopular: false
         });
       }
       e.preventDefault();
     },
-
+    showPopular(){
+      this.setState({
+        showPopular: true,
+        showSearchResults: false
+      });
+    },
   render(){
     if(this.state.moviesdata){
       var titles = this.state.moviesdata.map(function(movie, i){
@@ -138,11 +110,11 @@ var App  = React.createClass({
         }else{
             var imgSRC = "http://image.tmdb.org/t/p/original/" + movie.backdrop_path;
         }
-        var title = movie.original_title;
         var overview = movie.overview;
-        if(overview.length > 200 ){
-          overview = overview.substr(0, 180);
+        if(overview.length > 150){
+          overview = overview.substr(0,100);
         }
+        var title = movie.original_title;
         var vote_avg = movie.vote_average;
         return (
           <TitleItem key={i} imgURL={imgSRC} title={title} overview={overview} score={vote_avg} />
@@ -151,10 +123,11 @@ var App  = React.createClass({
     };
     return (
       <div className="main">
-        <Header />
+        <Header showPopular={this.showPopular} />
         <Search query={this.state.query} onChange={this._handleChange} pressEnter={this._handleSubmit} />
         <div className="titles">
-          {titles}
+          {this.state.showSearchResults && titles}
+          {this.state.showPopular && <Popular />}
         </div>
       </div>
     );
