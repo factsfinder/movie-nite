@@ -13,18 +13,11 @@ html,body{
   color: white;
 
 }
-.nav{
-  padding: 15px;
-  background-color: #081c24;
-  margin-bottom: 0px;
-}
-.nav .nav-items,.logo{
+
+.logo{
   display: flex;
   flex-direction: row;
   justify-content: center;
-  font-size: 25px;
-}
-.logo{
   color: white;
   padding-top: 20px;
   font-size: 40px;
@@ -34,7 +27,8 @@ html,body{
   }
 }
 
-.nav-items li{
+/*
+.nav-items {
   list-style: none;
   padding: 10px;
   border: 1px solid transparent;
@@ -55,7 +49,7 @@ html,body{
   }
 }
 
-
+*/
 .search-form  {
   max-width: 30%;
   height: 65px;
@@ -67,7 +61,8 @@ html,body{
   justify-content: center;
   transition: 0.3s ease;
   &:hover{
-    border-bottom: 1px solid #1ec672;
+    box-shadow: 0px 0px 5px 0px white;
+    color: blue;
   }
   input{
     border: none;
@@ -96,6 +91,7 @@ html,body{
   background-position: center;
   background-repeat: no-repeat;
   overflow: hidden;
+  cursor: pointer;
   margin: 8px;
   box-shadow: 0px 0px 8px 0px #1ec672;
   opacity: 1;
@@ -123,23 +119,29 @@ html,body{
   }
 }
 
+.pagination{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 .paginationBtn{
   background-color: transparent;
-    border: 1px solid black;
+    border: 1px solid white;
+    border-radius: 40px;
     color: #4CAF50;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    border: 1px solid transparent;
     font-size: 26px;
-    margin: 4px 2px;
+    margin: 4px 10px;
     cursor: pointer;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
     &:hover{
       background-color: white;
       border: 1px solid green;
+      border-radius: 2px;
       color: black;
     }
     &:active{
@@ -150,4 +152,22 @@ html,body{
       margin-left:10%;
       margin-right: 10%;
     }
+}
+
+.footer{
+  max-width: 100%;
+  text-align: center;
+  font-size: 20px;
+  margin-top: 80px;
+  margin-bottom: 20px;
+  p{
+    color: #fff;
+  }
+  a{
+    text-decoration: none;
+    color: white;
+    &:hover{
+      color: #4CAF50;
+    }
+  }
 }

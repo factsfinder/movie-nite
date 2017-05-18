@@ -8,6 +8,7 @@ const TitleItem = (props) => {
          <p>{props.overview}</p>
          <p>{props.score}</p>
        </div>
+       <button className="paginationBtn" onClick={props.getDetails}>Details</button>
      </div>
    );
 };

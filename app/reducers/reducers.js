@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux';
-import getMoviesReducer from './getMoviesReducer.js';
-import getTvShowsReducer from './getTvShowsReducer.js';
+import GetDetailsReducer from './getDetailsReducer.js';
 
 const reducers = combineReducers({
-  getMoviesReducer,
-  getTvShowsReducer
+  GetDetailsReducer
 });
 
 export default reducers;
