@@ -1,56 +1,47 @@
-var HTMLWebpackPlugin = require('html-webpack-plugin');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
-var HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
-  template: './public_html/index.html',
+const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
+  template: './public/index.html',
   filename: 'index.html',
   inject: 'body'
 });
 
-module.exports = {
+const config = {
   entry: __dirname + '/app/index.js',
-  module: {
-     loaders: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-        query: {
-                presets:'react'
+  output:{
+    filename: 'app_bundle.js',
+    path: path.resolve( __dirname, 'dist')
+  },
+  plugins: [ HTMLWebpackPluginConfig ],
+  module:{
+    rules: [
+      {test: /\.(js|jsx)$/, use: 'babel-loader', exclude: '/node_modules/'},
+      {test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader']},
+      {test: /\.css$/, use: 'style-loader!css-loader'},
+      {test: /\.(jpe?g|png|gif|svg)$/i,
+       use: [
+        'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
+         {
+           loader: 'image-webpack-loader',
+           query: {
+             progressive: true,
+             optipng:{
+               optimizationLevel: 7,
+             },
+             gifsicle:{
+              interlaced: false,
+            },
+            pngquant: {
+              quality: '65-90',
+              speed: 4
             }
-      },
-      {
-        test: /\.css$/,
-        loader: "style-loader!css-loader"
-      },
-      {
-    test: /\.(gif|png|jpe?g|svg)$/i,
-    loaders: [
-      'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
-      {
-        loader: 'image-webpack-loader',
-        query: {
-          progressive: true,
-          optipng:{
-            optimizationLevel: 7,
-          },
-          gifsicle:{
-            interlaced: false,
-          },
-          pngquant: {
-            quality: '65-90',
-            speed: 4
           }
         }
-      }
+       ]
+     }
     ]
-  },
-]
-},
-
-
-  output: {
-   filename: 'transformed.js',
-   path: __dirname + '/build'
-  },
-  plugins: [HTMLWebpackPluginConfig]
+  }
 };
+
+module.exports = config;
