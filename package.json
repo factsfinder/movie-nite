@@ -9,7 +9,6 @@
   "author": "Phanindra Veera a.k.a factsfinder",
   "license": "ISC",
   "scripts": {
-    "dev": "webpack-dev-server",
     "build": "webpack",
     "postinstall": "webpack --config ./webpack.config.js --progress --colors",
     "start": "NODE_ENV=production node server.js"
