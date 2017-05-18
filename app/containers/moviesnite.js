@@ -3,6 +3,7 @@ import store from '../store.js';
 import { connect } from 'react-redux';
 import reducers from '../reducers/reducers.js';
 import { getMovies, getTvShows } from '../actions/actions.js';
+import Popular from './popular.js';
 import Header from '../components/header.js';
 import Search from '../components/search.js';
 import TitleItem from '../components/titleItem.js';
@@ -16,6 +17,7 @@ class MoviesNite extends React.Component{
       query: '',
       searchReqURL: '',
       showSearchResults: false,
+      showPopular: true,
       searchData: []
     };
     this._handleChange = this._handleChange.bind(this);
@@ -36,6 +38,7 @@ class MoviesNite extends React.Component{
         this.setState({
           searchReqURL: reqURL,
           showSearchResults: true,
+          showPopular: false,
           searchData: responseJson.results
         });
       })
@@ -50,7 +53,7 @@ class MoviesNite extends React.Component{
         <Header showMovies={this.props.getMovies} showTvShows = {this.props.getTvShows} />
         <Search query={this.state.query} onChange={this._handleChange} pressEnter={this._submitSearch} />
         <div className="titles">
-          {this.state.showSearchResults ?
+          {this.state.showSearchResults && !this.state.showPopular ?
             this.state.searchData.map((each, i) => {
               let imgSRC = '';
               each.backdrop_path === null ?
@@ -70,7 +73,7 @@ class MoviesNite extends React.Component{
               return (
                 <TitleItem key={i} imgURL={imgSRC} title={title} overview={overview} score={vote_avg} />
               );
-            }) : null
+            }) : <Popular />
           }
         </div>
         <Pagination previous={this.props.previous} next={this.props.next}/>
