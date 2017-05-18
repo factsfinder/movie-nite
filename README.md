@@ -1,1 +1,1 @@
-Search your favorite Movies and TV Shows..!
+Search all your favorite Movies..!
