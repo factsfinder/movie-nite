@@ -18,7 +18,7 @@ class Popular extends React.Component{
       .catch((err) => {console.log(err)});
   }
   render(){
-    this.callPopular("https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=372f0200f82160d08d565e5a32b002cf");
+    this.callPopular("https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=372f0200f82160d08d565e5a32b002cf&page=1");
     return (
       <div className="popular">
          <h2 style={{textAlign:'center'}}>Most Popular Movies Right Now..!</h2>
